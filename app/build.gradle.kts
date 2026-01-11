@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -15,6 +17,17 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
+
+
+        val localProps = Properties()
+        localProps.load(rootProject.file("local.properties").inputStream())
+
+        buildConfigField(
+            "String",
+            "NEWS_API_KEY",
+            "\"${localProps["NEWS_API_KEY"]}\""
+        )
+        println(">>> NEWS_API_KEY = ${localProps["NEWS_API_KEY"]}")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,6 +50,7 @@ android {
     }
     buildFeatures{
         viewBinding = true
+        buildConfig = true
     }
 }
 
