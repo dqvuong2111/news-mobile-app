@@ -8,6 +8,15 @@
     android:background="@color/background"
     tools:context=".ui.MainActivity">
 
+    <include
+        android:id="@+id/network_banner"
+        layout="@layout/network_status_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <FrameLayout
         android:id="@+id/container_main"
         android:layout_width="match_parent"
@@ -15,7 +24,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/network_banner">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_news"
