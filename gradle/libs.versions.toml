@@ -38,6 +38,7 @@ roomCompilerVersion = "2.8.4"
 roomKtx = "2.6.0"
 roomRuntime = "2.8.4"
 roomRuntimeVersion = "2.6.0"
+swiperefreshlayout = "1.1.0"
 
 [libraries]
 androidx-appcompat-v161 = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
@@ -83,6 +84,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 material-v1100 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-v290 = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion" }
+androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -1,16 +1,13 @@
 package com.example.thenewsapp.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,6 +40,7 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
 
         newsViewModel = (activity as MainActivity).newsViewModel
         setupHeadlinesRecyclerView()
+        setupSwipeRefresh()
 
         newsAdapter.setOnItemClickListener {
             val action =
@@ -56,6 +54,7 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
                 is Resource.Success<*> -> {
                     hideProgressBar()
                     hideErrorMessage()
+                    binding.swipeRefresh.isRefreshing = false
                     response.data?.let {newsRespone ->
                         newsAdapter.differ.submitList(newsRespone.articles.toList())
                         val totalPages = newsRespone.totalResults / Constants.QUERY_PAGE_SIZE + 2
@@ -68,6 +67,7 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
 
                 is Resource.Error<*> -> {
                     hideProgressBar()
+                    binding.swipeRefresh.isRefreshing = false
                     response.message?.let { message ->
                         showErrorMessage(message)
                     }
@@ -80,7 +80,26 @@ class HeadlinesFragment : Fragment(R.layout.fragment_headlines) {
         })
 
         retryButton.setOnClickListener {
-            newsViewModel.getHeadlines("vn")
+            newsViewModel.refreshHeadlines("vn")
+        }
+    }
+
+    private fun setupSwipeRefresh() {
+        binding.swipeRefresh.apply {
+            // Set refresh indicator colors
+            setColorSchemeColors(
+                ContextCompat.getColor(requireContext(), R.color.primary),
+                ContextCompat.getColor(requireContext(), R.color.accent)
+            )
+            setProgressBackgroundColorSchemeColor(
+                ContextCompat.getColor(requireContext(), R.color.surface)
+            )
+
+            setOnRefreshListener {
+                // Refresh headlines and check internet status
+                isLastPage = false
+                newsViewModel.refreshHeadlines("vn")
+            }
         }
     }
 

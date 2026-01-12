@@ -99,4 +99,7 @@ dependencies {
 
     // Jsoup
     implementation("org.jsoup:jsoup:1.17.2")
+
+    // SwipeRefreshLayout
+    implementation(libs.androidx.swiperefreshlayout)
 }

@@ -41,20 +41,28 @@
 
     </LinearLayout>
 
-    <!-- News List -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/headline_articles"
+    <!-- Swipe to Refresh Container -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:paddingTop="8dp"
-        android:paddingBottom="100dp"
-        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header"
-        tools:listitem="@layout/item_news" />
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+        <!-- News List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/headline_articles"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="8dp"
+            android:paddingBottom="100dp"
+            android:overScrollMode="never"
+            tools:listitem="@layout/item_news" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <!-- Error State -->
     <include

@@ -40,6 +40,13 @@ class NewsViewModel(app: Application, val newsRepository: NewsRepository): Andro
         searchNewsInternet(searchQuery)
     }
 
+    fun refreshHeadlines(countryCode: String) = viewModelScope.launch {
+        // Reset pagination to reload from first page
+        headlinesPage = 1
+        headlinesResponse = null
+        headlinesInternet(countryCode)
+    }
+
     private fun handleHeadlinesResponse(response: Response<NewsRespone>): Resource<NewsRespone>{
         if(response.isSuccessful) {
             response.body()?.let { resultResponse ->
